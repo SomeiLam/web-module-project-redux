@@ -8,17 +8,20 @@ export const initialState = {
 const favoritesReducer = (state = initialState, action) => {
     switch (action.type) {
         case (ADD_FAVORITE): {
+            let inlist = false;
             if (state.favorites.length > 0) {
                 state.favorites.forEach((element) => {
-                    if (element.id === action.payload) return state;
+                    if (element.id === action.payload.id) 
+                        return inlist = true;
                 })
-            } else {
+            }
+            if (inlist)
+                return state;
+            else
                 return {
                     ...state,
                     favorites: [...state.favorites, action.payload]
-                }
-            }
-            break;
+                };
         }
         case (REMOVE_FAVORITE): {
             return {
